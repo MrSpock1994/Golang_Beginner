@@ -30,11 +30,29 @@ func main() {
 		fmt.Println("Enter your last name: ")
 		fmt.Scan(&last_name)
 
+		if len(first_name) < 2 || len(last_name) < 2 {
+
+			fmt.Println("You entered a invalid name, please check the first name or the last name, both must have at least two character! ")
+			continue
+		}
+
 		fmt.Println("Enter your email: ")
 		fmt.Scan(&email)
 
+		if !strings.Contains(email, "@") {
+
+			fmt.Println("You entered an invalid email! Please check")
+			continue
+		}
+
 		fmt.Println("Enter number of tickets: ")
 		fmt.Scan(&user_tickets)
+
+		if user_tickets > remaining_tickets {
+
+			fmt.Printf("Sorry, but there are only %v tickets remaining, and you tried to pick %v, choose a lower number!\n", remaining_tickets, user_tickets)
+			continue
+		}
 
 		remaining_tickets -= user_tickets
 		bookings = append(bookings, first_name+" "+last_name)
@@ -49,6 +67,11 @@ func main() {
 		}
 
 		fmt.Printf("The first names of bookings are: %v\n", firstnames)
+
+		if remaining_tickets == 0 {
+			fmt.Println("We ran out of tickets!")
+			break
+		}
 
 	}
 
